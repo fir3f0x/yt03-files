@@ -1,4 +1,4 @@
-# 🚀 Tutorial: n8n + WAHA (Local com Docker)
+# 🚀 Tutorial: Docker local com n8n + WAHA (Api do Whatsapp)
 
 ## 🛠️ Pré-requisitos
 
