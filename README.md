@@ -11,7 +11,7 @@
 
 ## 🐳 Passo 1 — Instalar o Docker
 
-1. Acesse [docker.com](https://docker.com)
+1. Acesse [docker.com](https://docker.com/)
 2. Clique em **Download Docker Desktop**
 3. Baixe o instalador para seu sistema operacional
 4. 🧰 Execute o instalador e siga as instruções
@@ -20,10 +20,10 @@
 
 ## 📥 Passo 2 — Baixar o arquivo de configuração
 
-1. Acesse o repositório: [https://github.com/fir3f0x/yt03-files/](https://github.com/fir3f0x/yt03-files/)
-2. Localize e baixe o arquivo `docker-compose.yml`
+1. Acesse o repositório github: [asternic/wuzapi](https://github.com/asternic/wuzapi)
+2. Fazer download dos arquivos
 3. 📁 Crie uma pasta no seu computador (ex.: `n8n_whatsapp_Local`)
-4. Mova `docker-compose.yml` para dentro dessa pasta
+4. Descompacte o arquivo baixado dentro da pa
 
 ---
 
@@ -31,16 +31,13 @@
 
 1. Abra a pasta criada (`n8n_whatsapp_Local`)
 2. Abra o terminal na pasta (ou navegue até ela pelo terminal)
-
-   1. Botao direito do mouse > Abri no Terminal
+    1. Botao direito do mouse > Abri no Terminal
 3. Execute:
-
 ```bash
 docker-compose up -d
 ```
 
-4. ⏳ O Docker vai baixar e iniciar os serviços (n8n, WAHA, Redis, Postgres). 
-
+4. ⏳ O Docker vai baixar e iniciar os serviços
 ---
 
 ## 🔗 Passo 4 — Conectar o WhatsApp ao WAHA
