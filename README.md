@@ -23,7 +23,7 @@
 1. Acesse o repositório github: [asternic/wuzapi](https://github.com/asternic/wuzapi)
 2. Fazer download dos arquivos
 3. 📁 Crie uma pasta no seu computador (ex.: `n8n_whatsapp_Local`)
-4. Descompacte o arquivo baixado dentro da pa
+4. Descompacte o arquivo baixado dentro da pasta e renomei para **wuzapi**
 
 ---
 
