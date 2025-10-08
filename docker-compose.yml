@@ -4,57 +4,93 @@
 ############################################
 
 services:
-  redis:
-    image: redis:latest
-    platform: linux/amd64
-    command: redis-server --requirepass default
-    environment:
-      REDIS_USER: default
-      REDIS_PASSWORD: default
+  wuzapi-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
-      - "6379:6379"
+      - "${WUZAPI_PORT:-8080}:8080"
+    environment:
+      - WUZAPI_ADMIN_TOKEN=${WUZAPI_ADMIN_TOKEN}
+      - DB_USER=${DB_USER:-wuzapi}
+      - DB_PASSWORD=${DB_PASSWORD:-wuzapi}
+      - DB_NAME=${DB_NAME:-wuzapi}
+      - DB_HOST=db
+      - DB_PORT=${DB_PORT:-5432}
+      - TZ=${TZ:-America/Sao_Paulo}
+      - WEBHOOK_FORMAT=${WEBHOOK_FORMAT:-json}
+      - SESSION_DEVICE_NAME=${SESSION_DEVICE_NAME:-WuzAPI}
+      # RabbitMQ configuration Optional
+      - RABBITMQ_URL=amqp://wuzapi:wuzapi@rabbitmq:5672/
+      - RABBITMQ_QUEUE=whatsapp_events
+    depends_on:
+      db:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    networks:
+      - wuzapi-network
+    restart: on-failure
 
-  postgres:
-    image: postgres:latest
-    platform: linux/amd64
+  db:
+    image: postgres:16
     environment:
-      POSTGRES_USER: default
-      POSTGRES_PASSWORD: default
-      POSTGRES_DB: default
-    ports:
-      - "5432:5432"
+      POSTGRES_USER: ${DB_USER:-wuzapi}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-wuzapi}
+      POSTGRES_DB: ${DB_NAME:-wuzapi}
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - db_data:/var/lib/postgresql/data
+    networks:
+      - wuzapi-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-wuzapi}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    restart: always
 
-  waha:
-    image: devlikeapro/waha:latest
-    platform: linux/amd64
+  rabbitmq:
+    image: rabbitmq:3-management
     environment:
-      WHATSAPP_HOOK_URL: http://host.docker.internal:5678/webhook/webhook
-      WHATSAPP_DEFAULT_ENGINE: GOWS
-      WHATSAPP_HOOK_EVENTS: message
-    volumes:
-      - waha_sessions:/app/.sessions
-      - waha_media:/app/.media
+      RABBITMQ_DEFAULT_USER: wuzapi
+      RABBITMQ_DEFAULT_PASS: wuzapi
+      RABBITMQ_DEFAULT_VHOST: /
     ports:
-      - "3000:3000"
+      - "5672:5672" # AMQP port
+      - "15672:15672" # Management UI port
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    networks:
+      - wuzapi-network
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: always
 
   n8n:
     image: n8nio/n8n:latest
     platform: linux/amd64
+    env_file:
+    - .env
     environment:
-      WEBHOOK_URL: http://host.docker.internal:5678
-      N8N_HOST: host.docker.internal
-      GENERIC_TIMEZONE: America/Sao_Paulo
+      WEBHOOK_URL: ${N8N_WEBHOOK_URL}
+      N8N_HOST: ${N8N_HOST}
+      GENERIC_TIMEZONE: ${TIMEZONE}
       N8N_LOG_LEVEL: debug
       N8N_COMMUNITY_PACKAGES_ALLOW_TOOL_USAGE: true
     volumes:
       - n8n_data:/home/node/.n8n
     ports:
-      - "5678:5678"
+      - "${N8N_PORT}:${N8N_PORT}"
+
+networks:
+  wuzapi-network:
+    driver: bridge
 
 volumes:
-  pgdata:
-  waha_sessions:
-  waha_media:
+  db_data:
   n8n_data:
+  rabbitmq_data:
+
