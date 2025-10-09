@@ -94,6 +94,13 @@ docker-compose up -d
 4. 📩 Em **Events**, escolha apenas **message**
 5. 💾 Clique em **Set**
 
+### 🔐 Configurar as Credênciais
+
+1. Acesse o site https://aistudio.google.com/api-key e crie uma chave nova (toda explicação no video do youtube, acesse aqui)
+2. As credenciais do node do Wuzapi AI basta usar a mesma api key usada para logar no dashboard e usar a URL http://host.docker.internal:8080
+<img width="60%" alt="image" src="https://github.com/user-attachments/assets/2b3e34cc-7934-484c-93c8-c2f574478fdb" />
+
+
 ### 🧪 Testar o Webhook no n8n
 
 1. No n8n, clique em **Listen for test event** 🧠
