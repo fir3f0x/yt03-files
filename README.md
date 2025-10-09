@@ -2,7 +2,7 @@
 
 ## 🐳 Passo 1 — Instalar o Docker
 
-1. Acesse [docker.com](https://docker.com/)
+1. Acesse <a href="https://docker.com" target="_blank">docker.com</a>
 2. Clique em **Download Docker Desktop**
 3. Baixe o instalador para seu sistema operacional
 4. 🧰 Execute o instalador e siga as instruções
@@ -11,11 +11,11 @@
 
 ## 📥 Passo 2 — Baixar o arquivo de configuração
 
-1. Acesse o repositório oficial do WUZAPI NO github > https://github.com/asternic/wuzapi
+1. Acesse o repositório oficial do WUZAPI no github >  <a href="https://github.com/asternic/wuzapi" target="_blank">Baixar WUZAPI no github</a>
 2. Fazer download dos arquivos
 3. 📁 Crie uma pasta no seu computador (ex.: `n8n_whatsapp_Local`)
 4. Descompacte o arquivo baixado dentro da pasta e renomei para **wuzapi**
-5. Acesse o meu repositorio > https://github.com/fir3f0x/yt03-files
+5. Acesse o meu repositorio <a href="https://github.com/fir3f0x/yt03-files" target="_blank">Arquivos de Configuração</a>
 6. Baixe o arquivo .env e o docker-compose.yml e coloque na pasta **wuzapi** e substitua os já existentes.
 
 ---
@@ -27,11 +27,10 @@
 3. Abra o terminal na pasta (ou navegue até ela pelo terminal)
     1. Botao direito do mouse (dentro da pasta) > Abri no Terminal
 4. Execute:
-```bash
+```
 docker-compose up -d
 ```
 5. ⏳ O Docker vai baixar e iniciar os serviços
-
 
 ---
 
@@ -75,7 +74,7 @@ docker-compose up -d
 
 ## 🤖 Passo 6 — Criar o workflow de automação
 
-1. Volte ao meu repositório https://github.com/fir3f0x/yt03-files
+1. Volte ao meu repositório <a href="https://github.com/fir3f0x/yt03-files" target="_blank">Baixar fluxo do n8n</a>
 2. Baixe agora ou copie o conteudo do arquivo `fluxo_whatsapp_atendimento.json`
 3. Volte ao n8n, clique em Create Workflow (normalmente `http://localhost:5678`)
 4. Se baixou o arquivo `fluxo_whatsapp_atendimento.json` você importa
