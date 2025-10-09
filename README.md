@@ -1,4 +1,4 @@
-# 🚀 Tutorial: Docker local com n8n + WAHA (Api do Whatsapp)
+# 🚀 Tutorial: Docker local com n8n + Wuzapi.
 
 ## 🐳 Passo 1 — Instalar o Docker
 
@@ -100,30 +100,12 @@ docker-compose up -d
 2. 📲 Envie uma mensagem de teste (usando outro número de WhatsApp)
 3. O n8n receberá os dados. 📌 Clique no ícone de **pin** para salvar os dados
 
-### 🧠 Estrutura mínima do workflow (nós)
-
-* 🔀 **Switch**: filtrar apenas eventos do tipo `message`
-* 🤖 **AI Agent**: configurar *System Message* com persona e objetivo do chatbot
-* 💬 **Google Gemini Chat Model**: conectar ao **Chat Model** do AI Agent
-
-  * 🔑 Criar credencial com sua API Key do Gemini
-* 🧠 **Redis Chat Memory**: conectar ao **Memory** do AI Agent
-
-  * ⚙️ Credencial: `host = host.docker.internal`, `password = default`
-* 👁️‍🗨️ **WAHA (Send Seen)**: marcar a mensagem como lida
-* 📤 **WAHA (Send Text)**: enviar a resposta
-
-  * 🔗 Mapear `output` do **AI Agent** para o campo **Text**
-* 🗺️ Mapear campos essenciais (`chatId`, `session`, etc.) conforme necessário
-
-💾 Salve o workflow e clique em **Ativar**.
-
 ---
 
 ⚠️⚠️ Como nem tudo são flores, a estrutura de automação rodando localmente através do Docker possui algumas limitações importantes:
 
 1.  🚫 **Não Recebe Webhooks Externos:** A principal restrição é que, por estar rodando na rede local do seu computador (`localhost`), a instalação do n8n não é acessível pela internet. Isso impede que outros serviços ou plataformas online (como gateways de pagamento, CRMs, plataformas de e-commerce, etc.) enviem notificações via webhook para iniciar suas automações.
 
-2.  🎯 **Foco Exclusivo em WhatsApp via WAHA**: Consequentemente, este setup é projetado especificamente para automações que são iniciadas e contidas dentro da interação com o WhatsApp (através do WAHA), onde o próprio n8n busca as informações ou é acionado por um evento que já está em sua rede local.
+2.  🎯 **Foco Exclusivo em WhatsApp via WUZAPI**: Consequentemente, este setup é projetado especificamente para automações que são iniciadas e contidas dentro da interação com o WhatsApp, onde o próprio n8n busca as informações ou é acionado por um evento que já está em sua rede local.
 
 3.  💻 **Dependência do Computador Ligado:** A automação só funcionará enquanto o seu computador estiver ligado e o Docker Desktop estiver em execução. Se o computador for desligado ou entrar em modo de suspensão, o seu agente de IA ficará offline. 😴
