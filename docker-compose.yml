@@ -93,4 +93,3 @@ volumes:
   db_data:
   n8n_data:
   rabbitmq_data:
-
