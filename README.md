@@ -11,7 +11,7 @@
 
 ## 📥 Passo 2 — Baixar o arquivo de configuração
 
-1. Acesse o repositório oficial do WUZAPI no github >  <a href="https://github.com/asternic/wuzapi" target="_blank">Baixar WUZAPI no github</a>
+1. Acesse o repositório oficial do WUZAPI no github  <a href="https://github.com/asternic/wuzapi" target="_blank">Baixar WUZAPI no github</a>
 2. Fazer download dos arquivos
 3. 📁 Crie uma pasta no seu computador (ex.: `n8n_whatsapp_Local`)
 4. Descompacte o arquivo baixado dentro da pasta e renomei para **wuzapi**
