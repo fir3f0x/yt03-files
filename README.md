@@ -20,40 +20,48 @@
 
 ## 📥 Passo 2 — Baixar o arquivo de configuração
 
-1. Acesse o repositório github: [asternic/wuzapi](https://github.com/asternic/wuzapi)
+1. Acesse o repositório oficial do WUZAPI NO github > https://github.com/asternic/wuzapi
 2. Fazer download dos arquivos
 3. 📁 Crie uma pasta no seu computador (ex.: `n8n_whatsapp_Local`)
 4. Descompacte o arquivo baixado dentro da pasta e renomei para **wuzapi**
+5. Acesse o meu repositorio > https://github.com/fir3f0x/yt03-files
+6. Baixe o arquivo .env e o docker-compose.yml e coloque na pasta **wuzapi** e substitua os já existentes.
 
 ---
 
 ## ▶️ Passo 3 — Executar os contêineres com Docker
 
 1. Abra a pasta criada (`n8n_whatsapp_Local`)
-2. Abra o terminal na pasta (ou navegue até ela pelo terminal)
-    1. Botao direito do mouse > Abri no Terminal
-3. Execute:
+2. Execute o docker desktop e deixe ele rodando.
+3. Abra o terminal na pasta (ou navegue até ela pelo terminal)
+    1. Botao direito do mouse (dentro da pasta) > Abri no Terminal
+4. Execute:
 ```bash
 docker-compose up -d
 ```
+5. ⏳ O Docker vai baixar e iniciar os serviços
 
-4. ⏳ O Docker vai baixar e iniciar os serviços
+
 ---
 
-## 🔗 Passo 4 — Conectar o WhatsApp ao WAHA
+## 🔗 Passo 4 — Conectar o WhatsApp ao Wuazpi
 
-1. No Docker Desktop, localize o contêiner **waha-1**
+1. No Docker Desktop, localize o contêiner **wuzapi**
 2. Clique no link da porta (normalmente `http://localhost:3000`)
-3. Em WAHA, vá em **Dashboard**
-4. Na seção **Sessions**, clique em **Start** ▶️ na sessão `default`
-5. 📸 Clique no ícone de **QR Code (login)**
+3. Vá em **Dashboard**, marque Admin Mode, coloque o token que está no arquivo .env (WUZAPI_ADMIN_TOKEN)
+4. Clique em +Add Instance e deixe como na imagem abaixo e clique em **submit**
+<img width="70%" alt="image" src="https://github.com/user-attachments/assets/64b29daa-c383-4597-91c1-63294e77fe54" />
+
+5. 📸 Clique em Open e em seguida em Connect. Um QRCODE irá aparecer.
 6. No celular: WhatsApp > ⚙️ Configurações > 📡 Aparelhos conectados > **Conectar um aparelho** > escaneie o QR code
+<img width="392" height="129" alt="image" src="https://github.com/user-attachments/assets/adb371c2-4819-420c-88a4-d8f02fd00dd2" />
+
 
 ---
 
 ## ⚙️ Passo 5 — Configurar o n8n
 
-1. No Docker Desktop, localize o contêiner **n8n-1**
+1. No Docker Desktop, localize o contêiner **n8n**
 2. Clique no link da porta (normalmente `http://localhost:5678`)
 3. ✍️ Crie a conta de administrador (e-mail, nome, senha)
 4. Você pode pular a pesquisa de customização
@@ -65,33 +73,35 @@ docker-compose up -d
 3. No n8n: 👤 Ícone do perfil → **Settings** → **Usage and plan**
 4. Cole a chave e clique em **Enter activation key** ✅
 
-### 🔌 Instalar o conector WAHA
+### 🔌 Instalar o conector WUZAPI
 
 1. Em **Settings**, vá para **Community nodes**
 2. Clique em **Install a community node**
-3. Digite `n8n-nodes-waha`
+3. Digite `n8n-nodes-wuzapi`
 4. ☑️ Marque a caixa de confirmação e clique em **Install**
 
 ---
 
 ## 🤖 Passo 6 — Criar o workflow de automação
 
-1. Na tela principal do n8n, clique em **Start from scratch**
+1. Volte ao meu repositório https://github.com/fir3f0x/yt03-files
+2. Baixe agora ou copie o conteudo do arquivo `fluxo_whatsapp_atendimento.json`
+3. Volte ao n8n, clique em Create Workflow (normalmente `http://localhost:5678`)
+4. Se baixou o arquivo `fluxo_whatsapp_atendimento.json` você importa
+<img width="604" height="332" alt="image" src="https://github.com/user-attachments/assets/c54e1a49-a70a-45f2-9a9c-4cc984f29ff3" />
+5. Se copiou basta colar e o fluxo irá aparecer.
 
-### 📡 Adicionar gatilho (Webhook)
+### 🔁 Configurar o Webhook no WUZAPI
 
-1. ➕ Clique no **+** e selecione **On webhook call**
-2. **HTTP Method**: `POST`
-3. **Path**: `webhook`
-4. 📋 Copie a **Production URL** exibida
+1. Volte ao Dashboard do WUZAPI (`http://localhost:3000/dashboard`)
+2. ⚙️ Clique em webhook events
+<img width="60%" alt="image" src="https://github.com/user-attachments/assets/e18fac7f-6df6-4408-af23-e2e283682f12" />
 
-### 🔁 Configurar o Webhook no WAHA
+3. ➕ Deixe All Events e cole o link do webhook copiado do n8n
+<img width="60%" alt="image" src="https://github.com/user-attachments/assets/78c65072-6abd-4f38-b9b9-04e687364879" />
 
-1. Volte ao Dashboard do WAHA (`http://localhost:3000/dashboard`)
-2. ⚙️ Clique na engrenagem da sua sessão
-3. ➕ Clique em **+ Webhook** e cole a URL do n8n
-4. 📩 Em **Events**, desmarque tudo exceto **message**
-5. 💾 Clique em **Update**
+4. 📩 Em **Events**, escolha apenas **message**
+5. 💾 Clique em **Set**
 
 ### 🧪 Testar o Webhook no n8n
 
