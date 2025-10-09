@@ -1,14 +1,5 @@
 # 🚀 Tutorial: Docker local com n8n + WAHA (Api do Whatsapp)
 
-## 🛠️ Pré-requisitos
-
-* 💻 Computador com Windows, macOS ou Linux
-* 🌐 Conexão com a internet
-* 📧 Conta Google
-* 📱 Celular com WhatsApp
-
----
-
 ## 🐳 Passo 1 — Instalar o Docker
 
 1. Acesse [docker.com](https://docker.com/)
@@ -89,6 +80,7 @@ docker-compose up -d
 3. Volte ao n8n, clique em Create Workflow (normalmente `http://localhost:5678`)
 4. Se baixou o arquivo `fluxo_whatsapp_atendimento.json` você importa
 <img width="604" height="332" alt="image" src="https://github.com/user-attachments/assets/c54e1a49-a70a-45f2-9a9c-4cc984f29ff3" />
+
 5. Se copiou basta colar e o fluxo irá aparecer.
 
 ### 🔁 Configurar o Webhook no WUZAPI
