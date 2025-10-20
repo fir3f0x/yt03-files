@@ -10,10 +10,10 @@
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2.1,
       "position": [
-        -384,
-        80
+        -592,
+        48
       ],
-      "id": "cee18ed4-7a32-419a-9d9d-304f7cfe7841",
+      "id": "4106803a-864b-4152-ae04-1aa144ccca55",
       "name": "Webhook",
       "webhookId": "7993f55c-f461-4a7b-bdbf-e2d998d3c8cd"
     },
@@ -50,10 +50,10 @@
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.2,
       "position": [
-        288,
-        80
+        144,
+        32
       ],
-      "id": "d0f4f3c0-51cb-413d-a3ed-839da57a4995",
+      "id": "ebfb8a17-ea43-4c66-ba13-8e3378484a79",
       "name": "Switch"
     },
     {
@@ -63,14 +63,14 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
       "typeVersion": 1,
       "position": [
-        432,
-        304
+        272,
+        256
       ],
-      "id": "e18e280d-5ffe-4933-b327-181c4ca19521",
+      "id": "cbb00433-9106-4135-9024-6604af97d55a",
       "name": "Google Gemini Chat Model",
       "credentials": {
         "googlePalmApi": {
-          "id": "1sKo3Ds8bfsIvHeN",
+          "id": "5PqVd9iZyOGpG5av",
           "name": "Google Gemini(PaLM) Api account"
         }
       }
@@ -88,7 +88,7 @@
             {
               "id": "2c823329-4d14-4fda-9896-4c144ce31353",
               "name": "chatid",
-              "value": "={{ $json.body.event.Info.Chat }}",
+              "value": "={{ (() => {\n  const chatId = $json.body.event.Info.Chat;\n  const match = chatId.match(/\\d+/);         \n  return match ? match[0] : '';              \n})() }}",
               "type": "string"
             },
             {
@@ -112,7 +112,7 @@
             {
               "id": "cd21b671-bbae-49d3-811c-5f6327febbb6",
               "name": "message",
-              "value": "={{ $json.body.event.Message.extendedTextMessage.text }}",
+              "value": "={{ $json.body.event.Message.conversation }}",
               "type": "string"
             },
             {
@@ -128,10 +128,10 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -160,
-        80
+        -304,
+        32
       ],
-      "id": "7b4930f4-881e-4cb1-92ff-40890544cd40",
+      "id": "9b45001e-df20-437d-8df4-21b9c057269a",
       "name": "Variaveis Internas"
     },
     {
@@ -187,10 +187,10 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        64,
-        80
+        -80,
+        32
       ],
-      "id": "1589315f-bdbe-41a9-b21e-d30882c49a75",
+      "id": "65b6f98a-bba8-4d58-8325-aeedcf646d0d",
       "name": "Variaveis Flexiveis"
     },
     {
@@ -201,27 +201,12 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        0,
-        0
+        -144,
+        -48
       ],
       "typeVersion": 1,
-      "id": "eddad122-6ac7-4d99-b7b2-6e0312f7adc6",
+      "id": "c87fe01f-88e4-465c-b218-7dca7b6552cf",
       "name": "Sticky Note"
-    },
-    {
-      "parameters": {
-        "sessionIdType": "customKey",
-        "sessionKey": "={{ $('Webhook').item.json.body.event.Info.Chat }}",
-        "contextWindowLength": 10
-      },
-      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
-      "typeVersion": 1.3,
-      "position": [
-        592,
-        304
-      ],
-      "id": "af7a92c2-6300-46c6-b9a7-1e277c8e8cb8",
-      "name": "Simple Memory"
     },
     {
       "parameters": {
@@ -234,32 +219,13 @@
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 2.2,
       "position": [
-        528,
-        80
+        384,
+        32
       ],
-      "id": "ec0f549d-7029-4743-bc71-42c664077fd3",
-      "name": "AI Agent1"
-    },
-    {
-      "parameters": {
-        "phoneNumber": "={{ $('Webhook').item.json.body.event.Info.Chat }}",
-        "message": "={{ $json.output }}",
-        "additionalOptions": {}
-      },
-      "type": "n8n-nodes-wuzapi.wuzapiAi",
-      "typeVersion": 1,
-      "position": [
-        880,
-        80
-      ],
-      "id": "e1398f41-2003-4f63-bd3c-6e44e9d39056",
-      "name": "Wuzapi AI",
-      "credentials": {
-        "wuzapiApi": {
-          "id": "41TX3AwI0MfnDuR6",
-          "name": "Wuzapi account 2"
-        }
-      }
+      "id": "b22f96b0-58d1-4b0d-a4d1-01b8f95c0722",
+      "name": "AI Agent1",
+      "executeOnce": false,
+      "alwaysOutputData": false
     },
     {
       "parameters": {
@@ -268,12 +234,47 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        1120,
-        64
+        976,
+        16
       ],
       "typeVersion": 1,
-      "id": "d1a6eee2-6495-4a8b-a2a6-0b9d6326a506",
+      "id": "10cee3b7-5aa3-4841-90cb-dd6624eef149",
       "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "phoneNumber": "={{ $('Variaveis Internas').item.json.chatid }}",
+        "message": "={{ $json.output }}",
+        "additionalOptions": {}
+      },
+      "type": "n8n-nodes-wuzapi.wuzapiAi",
+      "typeVersion": 1,
+      "position": [
+        736,
+        32
+      ],
+      "id": "08e96ba4-667e-40b4-adab-938c4a031357",
+      "name": "Wuzapi AI",
+      "credentials": {
+        "wuzapiApi": {
+          "id": "vAMyXhM2cl2N6mgT",
+          "name": "Wuzapi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $('Variaveis Internas').item.json.chatid }}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        416,
+        272
+      ],
+      "id": "33014d93-2c29-4aeb-8f03-9d4bb263a4c0",
+      "name": "Simple Memory"
     }
   ],
   "connections": {
@@ -332,17 +333,6 @@
         ]
       ]
     },
-    "Simple Memory": {
-      "ai_memory": [
-        [
-          {
-            "node": "AI Agent1",
-            "type": "ai_memory",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "AI Agent1": {
       "main": [
         [
@@ -353,11 +343,22 @@
           }
         ]
       ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "pinData": {},
   "meta": {
     "templateCredsSetupCompleted": true,
-    "instanceId": "1e2907f9d0d453e61e6b412bc3eed7ccb4e35e25aad10ee5b7f97cff7b4b5b49"
+    "instanceId": "b2f8892a09f99110f71b914dd4bfc3a670edb89ffb41c420af2ca349f438378c"
   }
 }
