@@ -112,7 +112,7 @@
             {
               "id": "cd21b671-bbae-49d3-811c-5f6327febbb6",
               "name": "message",
-              "value": "={{ $json.body.event.Message.conversation }}",
+              "value": "={{ $json.body.event.Message.extendedTextMessage.text }}",
               "type": "string"
             },
             {
